@@ -3,6 +3,43 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  const getActivityData = async () => {
+    try {
+      var url = window.location.href;
+      var access_token;
+      if (url !== "http://localhost:3000/") {
+        var access_token = url.split("#")[1].split("=")[1].split("&")[0];
+        var userId = url.split("#")[1].split("=")[2].split("&")[0]; 
+
+        let getActivityDataUrl = 'https://api.fitbit.com/1/user/-/activities/steps/date/2020-07-20/today.json';
+
+        const options = {
+          headers: {
+            "Authorization":["Bearer " + access_token]
+          }
+        };
+
+        var response = await fetch(getActivityDataUrl, options);
+
+        if(response.status >= 300) {
+          throw new Error(response.statusText);
+        }
+        var data = await response.json();
+        var steps = data['activities-steps']
+
+        steps.forEach(element => {
+          console.log(element.dateTime + " : " + element.value);
+        });
+
+        
+      }
+
+    } catch (error) {
+      console.log("Error in getting Activity data: " + error.message);
+    }
+  }
+
   const fetchData = async () => {
     try {
       // TODO: Get current time to identify start and end work hours
@@ -74,6 +111,8 @@ function App() {
     }
   }
 
+  
+
   return (
     <div className="App">
       <header className="App-header">
@@ -96,6 +135,10 @@ function App() {
           <br/>
           <button id="create" onClick={createEvent}>
             Create an Event in my Calendar
+          </button>
+          <br/>
+          <button id="activity" onClick={getActivityData}>
+            Get Activity data
           </button>
         </div>
       </header>

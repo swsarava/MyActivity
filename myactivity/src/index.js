@@ -5,9 +5,16 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ConfigTile from './ConfigTile';
+import StepsData from './StepsData';
 
 ReactDOM.render(
   <React.StrictMode>
+    <div>
+    <a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BVTP&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
+      Login to Fitbit
+    </a>
+  </div>
+    <App />
     <ConfigTile />
   </React.StrictMode>,
   document.getElementById('root')
