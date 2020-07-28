@@ -3,10 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  const fetchData = async () => {
+  let activityStartTime, activityEndTime;
+  const fetchData = async (startHour, endHour) => {
     try {
+      var datePrefix = new Date().toISOString().substring(0, 11);
+      var startTime = '2020-07-30T15:00:00.0000000';
+      var endTime = '2020-07-30T23:59:00.0000000';
       // TODO: Get current time to identify start and end work hours
-      let getCalendarEventsUrl = "https://graph.microsoft.com/v1.0/me/calendarView?startDateTime=2020-07-27T00:00:00.0000000&endDateTime=2020-07-27T23:59:00.0000000&$select=subject,start,end";
+      let getCalendarEventsUrl = "https://graph.microsoft.com/v1.0/me/calendarView?startDateTime=" + startTime + "&endDateTime=" + endTime + "&$select=subject,start,end";
 
       // TODO: Call Login API to fetch Auth Token
 
@@ -24,11 +28,50 @@ function App() {
 
       var body = await response.json();
       var events = body.value;
+
+      let startTimes = [];
+      let endTimes = [];
+      let i = 0;
+
       events.forEach(element => {
-        console.log(element.subject + " : " + element.start.dateTime + " to " + element.end.dateTime);
+        startTimes[i] = new Date(element.start.dateTime);
+        endTimes[i] = new Date(element.end.dateTime);
+        console.log(element.subject + " : " + startTimes[i] + " to " + endTimes[i]);
+        i++;
       });
 
-      // TODO: Scheduling algorithm to indentify free times from the calendar
+      startTimes[i] = new Date(endTime);
+
+      startTimes.sort((a,b) => a-b);
+      endTimes.sort((a,b) => a-b);
+
+      let maxDiff = new Date(startTimes[0]) - new Date(startTime);
+
+      let j, interval = 0, hourDiff = 0;
+      for(j=1; j<=startTimes.length; j++) {
+        var diff = new Date(startTimes[j]) - new Date(endTimes[j-1]);
+        if(diff > maxDiff) {
+          hourDiff = new Date(startTimes[j]).getHours() - new Date(endTimes[j-1]).getHours();
+          maxDiff = diff;
+          interval = j;
+        }
+      }
+
+      var hour = (interval === 0 ? 15 : new Date(endTimes[interval-1]).getHours()) + ((hourDiff%2)==0 ? hourDiff/2 : (hourDiff+1)/2);
+      
+      activityStartTime = new Date(startTime);
+      activityStartTime.setHours(hour-7);
+      activityStartTime.setMinutes(0);
+      activityStartTime.setSeconds(0);
+      activityStartTime.setMilliseconds(0);
+
+      console.log("Looks Like we can book some active time at: " + activityStartTime);
+      
+      activityEndTime = new Date(startTime);
+      activityEndTime.setHours(hour-7);
+      activityEndTime.setMinutes(15);
+      activityEndTime.setSeconds(0);
+      activityEndTime.setMilliseconds(0);
     } catch (error) {
       console.log("Error in fetching calendar data: " + error.message);
     }
@@ -46,11 +89,11 @@ function App() {
           {  
             subject: "Some Activity",
             start: {
-              dateTime: "2020-07-27T17:00:00.000",
+              dateTime: activityStartTime.toISOString(),
               timeZone: "Pacific Standard Time"
             },
             end: {
-              dateTime: "2020-07-27T17:30:00.000",
+              dateTime: activityEndTime.toISOString(),
               timeZone: "Pacific Standard Time"
             },
             responseRequested: true,
@@ -63,7 +106,6 @@ function App() {
         }
       };
 
-      // TODO: Create calendar event for an identified free time
       var response = await fetch(addEventUrl, options);
       console.log(response);
       if(response.status >= 300) {
