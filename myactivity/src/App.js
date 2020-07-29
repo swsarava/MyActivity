@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 import logo from './logo.svg';
 import './App.css';
 
@@ -41,11 +42,16 @@ function App() {
 
   let activityStartTime, activityEndTime;
 
-  const fetchData = async (startHour, endHour) => {
+  const fetchData = async () => {
     try {
+      let s = document.getElementById("startTime");
+      let startHour = (parseInt(s.options[s.selectedIndex].value)+7).toString();  // Convert to UTC time
+      let e = document.getElementById("endTime");
+      let endHour = (parseInt(e.options[e.selectedIndex].value)+7).toString();
       var datePrefix = new Date().toISOString().substring(0, 11);
-      var startTime = '2020-07-30T15:00:00.0000000';
-      var endTime = '2020-07-30T23:59:00.0000000';
+      var startTime = datePrefix + startHour + ':00:00.0000000';
+      var endTime = datePrefix + endHour + ':00:00.0000000';
+
       let getCalendarEventsUrl = "https://graph.microsoft.com/v1.0/me/calendarView?startDateTime=" + startTime + "&endDateTime=" + endTime + "&$select=subject,start,end";
 
       const options = {
@@ -103,11 +109,18 @@ function App() {
 
       console.log("Looks Like we can book some active time on: " + activityStartTime);
       
+      let acTime = document.getElementById("activityDuration");
+      let minutes = acTime.options[acTime.selectedIndex].value;
+
       activityEndTime = new Date(startTime);
       activityEndTime.setHours(hour-7);
-      activityEndTime.setMinutes(15);
+      activityEndTime.setMinutes(parseInt(minutes));
       activityEndTime.setSeconds(0);
       activityEndTime.setMilliseconds(0);
+
+      console.log(activityEndTime);
+
+      await createEvent();
     } catch (error) {
       console.log("Error in fetching calendar data: " + error.message);
     }
@@ -197,28 +210,22 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p> */}
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        </header>
         <div>
-          <button id="fetch" onClick={getAuthorizationToken}>
-            Fetch My Calendar Data
-          </button>
           <br/>
-          <button id="create" onClick={createEvent}>
-            Create an Event in my Calendar
-          </button>
-          <br/>
-          <button id="activity" onClick={getActivityData}>
+          <a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BVTP&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
+            Login to Fitbit
+          </a>
+          <br/><br/>
+          <Button id="activity" onClick={getActivityData}>
             Get Activity data
-          </button>
+          </Button>
+          <br/><br/>
+          <Button id="calendar" style={{visibility: "hidden"}} onClick={fetchData}>
+              Fetch My Calendar Data and Book Active Slots
+          </Button>
+          <br/>
         </div>
-      </header>
     </div>
   );
 }
