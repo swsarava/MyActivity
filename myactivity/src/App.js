@@ -9,14 +9,11 @@ function App() {
       var datePrefix = new Date().toISOString().substring(0, 11);
       var startTime = '2020-07-30T15:00:00.0000000';
       var endTime = '2020-07-30T23:59:00.0000000';
-      // TODO: Get current time to identify start and end work hours
       let getCalendarEventsUrl = "https://graph.microsoft.com/v1.0/me/calendarView?startDateTime=" + startTime + "&endDateTime=" + endTime + "&$select=subject,start,end";
-
-      // TODO: Call Login API to fetch Auth Token
 
       const options = {
         headers: {
-        "Authorization": "" //Paste Token from Graph Explorer Access Token tab until the generating auth token part is plugged in
+          "Authorization": await getAuthorizationToken()
         }
       };
 
@@ -33,10 +30,12 @@ function App() {
       let endTimes = [];
       let i = 0;
 
+      console.log("Scanning your calendar");
+
       events.forEach(element => {
         startTimes[i] = new Date(element.start.dateTime);
         endTimes[i] = new Date(element.end.dateTime);
-        console.log(element.subject + " : " + startTimes[i] + " to " + endTimes[i]);
+        // console.log(element.subject + " : " + startTimes[i] + " to " + endTimes[i]);
         i++;
       });
 
@@ -57,7 +56,7 @@ function App() {
         }
       }
 
-      var hour = (interval === 0 ? 15 : new Date(endTimes[interval-1]).getHours()) + ((hourDiff%2)==0 ? hourDiff/2 : (hourDiff+1)/2);
+      var hour = (interval === 0 ? 15 : new Date(endTimes[interval-1]).getHours()) + ((hourDiff%2) === 0 ? hourDiff/2 : (hourDiff+1)/2);
       
       activityStartTime = new Date(startTime);
       activityStartTime.setHours(hour-7);
@@ -65,7 +64,7 @@ function App() {
       activityStartTime.setSeconds(0);
       activityStartTime.setMilliseconds(0);
 
-      console.log("Looks Like we can book some active time at: " + activityStartTime);
+      console.log("Looks Like we can book some active time on: " + activityStartTime);
       
       activityEndTime = new Date(startTime);
       activityEndTime.setHours(hour-7);
@@ -102,18 +101,29 @@ function App() {
         ),
         headers: {
           "Content-type": "application/json",
-          "Authorization": "" //Paste Token from Graph Explorer Access Token tab until the generating auth token part is plugged in
+          "Authorization": await getAuthorizationToken()
         }
       };
 
       var response = await fetch(addEventUrl, options);
-      console.log(response);
       if(response.status >= 300) {
         throw new Error(response.statusText);
       }
+      console.log("Event added. Please check your calendar!");
     } catch (error) {
       console.log("Error in creating calendar event: " + error.message);
     }
+  }
+
+  const getAuthorizationToken = async() => {
+    const authUrl = "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/v2.0/authorize?client_id=5404d196-ed30-4a60-be91-03a30990f73b&response_type=code&redirect_uri=http%3A%2F%2Flocalhost&response_mode=query&scope=Calendars.ReadWrite&state=12345";
+    var res = await fetch(authUrl);
+    console.log(res);
+    var jsonResponse = await res.json();
+    console.log(jsonResponse);
+
+    // Paste Token from Graph Explorer Access Token tab until the generating auth token part above is complete
+    return "";
   }
 
   return (
@@ -132,7 +142,7 @@ function App() {
           Learn React
         </a>
         <div>
-          <button id="fetch" onClick={fetchData}>
+          <button id="fetch" onClick={getAuthorizationToken}>
             Fetch My Calendar Data
           </button>
           <br/>
