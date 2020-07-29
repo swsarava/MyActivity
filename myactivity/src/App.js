@@ -39,8 +39,8 @@ function App() {
     }
   }
 
-  const fetchData = async () => {
   let activityStartTime, activityEndTime;
+  
   const fetchData = async (startHour, endHour) => {
     try {
       var datePrefix = new Date().toISOString().substring(0, 11);
@@ -116,8 +116,6 @@ function App() {
   const createEvent = async () => {
     try {
       let addEventUrl = "https://graph.microsoft.com/v1.0/me/events";
-
-      // TODO: Call Login API to fetch Auth Token
 
       const options = {
         method: "POST",
