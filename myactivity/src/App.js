@@ -40,7 +40,7 @@ function App() {
   }
 
   let activityStartTime, activityEndTime;
-  
+
   const fetchData = async (startHour, endHour) => {
     try {
       var datePrefix = new Date().toISOString().substring(0, 11);
@@ -151,11 +151,40 @@ function App() {
   }
   
   const getAuthorizationToken = async() => {
-    const authUrl = "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/v2.0/authorize?client_id=5404d196-ed30-4a60-be91-03a30990f73b&response_type=code&redirect_uri=http%3A%2F%2Flocalhost&response_mode=query&scope=Calendars.ReadWrite&state=12345";
-    var res = await fetch(authUrl);
-    console.log(res);
-    var jsonResponse = await res.json();
-    console.log(jsonResponse);
+    // const authUrl = "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/v2.0/authorize?client_id=5404d196-ed30-4a60-be91-03a30990f73b&response_type=code&redirect_uri=http%3A%2F%2Flocalhost&response_mode=query&scope=Calendars.ReadWrite&state=12345";
+    // var res = await fetch(authUrl);
+    // console.log(res);
+    // var jsonResponse = await res.json();
+    // console.log(jsonResponse);
+
+    // var details = {
+    //   'client_id': "5404d196-ed30-4a60-be91-03a30990f73b",
+    //   'scope': "Calendars.ReadWrite",
+    //   'client_secret': "",
+    //   'grant_type': "authorization_code",
+    //   'redirect_uri': "http://localhost", 
+    //   'code': ""
+    // };
+    
+    // var formBody = [];
+    // for (var property in details) {
+    //   var encodedKey = encodeURIComponent(property);
+    //   var encodedValue = encodeURIComponent(details[property]);
+    //   formBody.push(encodedKey + "=" + encodedValue);
+    // }
+    // formBody = formBody.join("&");
+
+    // const options = {
+    //   method: "POST",
+    //   body: formBody,
+    //   headers: {
+    //     "Content-type": "application/x-www-form-urlencoded"
+    //   }
+    // }
+
+    // var tokenEndPoint = "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/v2.0/token";
+    // var res = await fetch(tokenEndPoint, options);
+    // console.log(res);
 
     // Paste Token from Graph Explorer Access Token tab until the generating auth token part above is complete
     return "";
