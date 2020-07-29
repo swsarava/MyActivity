@@ -6,21 +6,23 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ConfigTile from './ConfigTile';
 import StepsData from './StepsData';
+import logo from './myActivity.png';
 
 ReactDOM.render(
   <React.StrictMode>
-    <h1 style={{color: '#007bff', textAlign: 'center'}}>My Activity</h1>
-    <br/><br/>
-    <table style={{width:"80%"}}>
-      <tr>
-        <td style={{width:"20%"}}></td>
-        <td><ConfigTile /></td>
-        <td><App /></td>
-      </tr>
-    </table>
-    
-    <br/><br/>
-    
+    <div>
+      {/* <h1 style={{color: '#007bff', textAlign: 'center'}}>My Activity</h1> */}
+      <img src={logo} style={{width: '150px', height: '170px', marginLeft: '45%'}} alt="logo" />
+      <br/><br/>
+      <table style={{width:"80%"}}>
+        <tr>
+          <td style={{width:"20%"}}></td>
+          <td><ConfigTile /></td>
+          <td><App /></td>
+        </tr>
+      </table>
+      <br/><br/>
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );
