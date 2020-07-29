@@ -3,6 +3,43 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const getActivityData = async () => {
+    try {
+      var url = window.location.href;
+      var access_token;
+      if (url !== "http://localhost:3000/") {
+        var access_token = url.split("#")[1].split("=")[1].split("&")[0];
+        var userId = url.split("#")[1].split("=")[2].split("&")[0]; 
+
+        let getActivityDataUrl = 'https://api.fitbit.com/1/user/-/activities/steps/date/2020-07-20/today.json';
+
+        const options = {
+          headers: {
+            "Authorization":["Bearer " + access_token]
+          }
+        };
+
+        var response = await fetch(getActivityDataUrl, options);
+
+        if(response.status >= 300) {
+          throw new Error(response.statusText);
+        }
+        var data = await response.json();
+        var steps = data['activities-steps']
+
+        steps.forEach(element => {
+          console.log(element.dateTime + " : " + element.value);
+        });
+
+        
+      }
+
+    } catch (error) {
+      console.log("Error in getting Activity data: " + error.message);
+    }
+  }
+
+  const fetchData = async () => {
   let activityStartTime, activityEndTime;
   const fetchData = async (startHour, endHour) => {
     try {
@@ -114,7 +151,7 @@ function App() {
       console.log("Error in creating calendar event: " + error.message);
     }
   }
-
+  
   const getAuthorizationToken = async() => {
     const authUrl = "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47/oauth2/v2.0/authorize?client_id=5404d196-ed30-4a60-be91-03a30990f73b&response_type=code&redirect_uri=http%3A%2F%2Flocalhost&response_mode=query&scope=Calendars.ReadWrite&state=12345";
     var res = await fetch(authUrl);
@@ -148,6 +185,10 @@ function App() {
           <br/>
           <button id="create" onClick={createEvent}>
             Create an Event in my Calendar
+          </button>
+          <br/>
+          <button id="activity" onClick={getActivityData}>
+            Get Activity data
           </button>
         </div>
       </header>
