@@ -45,14 +45,36 @@ function App() {
   const fetchData = async () => {
     try {
       let s = document.getElementById("startTime");
-      let startHour = (parseInt(s.options[s.selectedIndex].value)+7).toString();  // Convert to UTC time
+      let startHour = parseInt(s.options[s.selectedIndex].value)+7;  // Convert to UTC time
       let e = document.getElementById("endTime");
-      let endHour = (parseInt(e.options[e.selectedIndex].value)+7).toString();
-      var datePrefix = new Date().toISOString().substring(0, 11);
-      var startTime = datePrefix + startHour + ':00:00.0000000';
-      var endTime = datePrefix + endHour + ':00:00.0000000';
+      let endHour = parseInt(e.options[e.selectedIndex].value)+7;
+      var startTime, endTime;
 
-      let getCalendarEventsUrl = "https://graph.microsoft.com/v1.0/me/calendarView?startDateTime=" + startTime + "&endDateTime=" + endTime + "&$select=subject,start,end";
+      if(startHour >= 24 && endHour>= 24) {
+        var startDateFull = new Date();
+        startDateFull.setDate(new Date().getDate() + 1);
+
+        var datePrefix = endDateFull.toISOString().substring(0, 11);
+        startTime = datePrefix + formatTimeOver24(startHour) + ':00:00.0000000';
+        endTime = datePrefix + formatTimeOver24(endHour) + ':00:00.0000000';
+      } else if(endHour >= 24) {
+        var datePrefix = new Date().toISOString().substring(0, 11);
+        startTime = datePrefix + formatTime(startHour) + ':00:00.0000000';
+
+        var endDateFull = new Date();
+        endDateFull.setDate(new Date().getDate() + 1);
+        var endDatePrefix = endDateFull.toISOString().substring(0, 11);
+        if(endHour-24<=9) {
+          endHour = "0" + (endHour-24).toString();
+        }
+        endTime = endDatePrefix + endHour + ':00:00.0000000';
+      } else {
+        var datePrefix = new Date().toISOString().substring(0, 11);
+        startTime = datePrefix + formatTime(startHour) + ':00:00.0000000';
+        endTime = datePrefix + formatTime(endHour) + ':00:00.0000000';
+      }
+
+      let getCalendarEventsUrl = "https://graph.microsoft.com/v1.0/me/calendarView?startDateTime=" + startTime + "&endDateTime=" + endTime + "&$select=subject,start,end,isAllDay";
 
       const options = {
         headers: {
@@ -76,10 +98,12 @@ function App() {
       console.log("Scanning your calendar");
 
       events.forEach(element => {
-        startTimes[i] = new Date(element.start.dateTime);
-        endTimes[i] = new Date(element.end.dateTime);
-        // console.log(element.subject + " : " + startTimes[i] + " to " + endTimes[i]);
-        i++;
+        if(!element.isAllDay) {
+          startTimes[i] = new Date(element.start.dateTime);
+          endTimes[i] = new Date(element.end.dateTime);
+          // console.log(element.subject + " : " + startTimes[i] + " to " + endTimes[i]);
+          i++;
+        }
       });
 
       startTimes[i] = new Date(endTime);

@@ -114,7 +114,7 @@ function ConfigTile() {
                                     <option value="09">9:00 am</option>
                                     <option value="10">10:00 am</option>
                                     <option value="11">11:00 am</option>
-                                    <option value="12">12:00 am</option>
+                                    <option value="12">12:00 pm</option>
                                     <option value="13">1:00 pm</option>
                                     <option value="14">2:00 pm</option>
                                     <option value="15">3:00 pm</option>
@@ -129,7 +129,7 @@ function ConfigTile() {
                                 </select>
                                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                 <select name="end time" id="endTime" onChange={() => setEndTime(handleEndTime)}>
-                                <option value="00">12:00 am</option>
+                                    <option value="00">12:00 am</option>
                                     <option value="01">1:00 am</option>
                                     <option value="02">2:00 am</option>
                                     <option value="03">3:00 am</option>
@@ -141,7 +141,7 @@ function ConfigTile() {
                                     <option value="09">9:00 am</option>
                                     <option value="10">10:00 am</option>
                                     <option value="11">11:00 am</option>
-                                    <option value="12">12:00 am</option>
+                                    <option value="12">12:00 pm</option>
                                     <option value="13">1:00 pm</option>
                                     <option value="14">2:00 pm</option>
                                     <option value="15">3:00 pm</option>
