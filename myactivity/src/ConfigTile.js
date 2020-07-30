@@ -63,36 +63,30 @@ function ConfigTile() {
     }
     console.log("Duration : " + Duration);
 
-
-
-
-
-
-  return (
+    return (
       <div className = "container">
         <div className = "row">
             <Card>
                 <Card.Body>
-                    <Card.Title>My Configurations
-                    </Card.Title><hr></hr>
+                    <Card.Title>My Configurations</Card.Title>
+                    <hr></hr>
                     <Form>
                         <Card.Text>
-                            
-                                <b>Autobook into Calendar</b>
-                                <span class = "titleline"></span>
-                                 <label class="switch">
-                                     <input type="checkbox" id="expand" onChange={openConfig} />
-                                     <span class="slider round"></span>
-                                 </label>
+                            <b>Autobook into Calendar</b>
+                            <span class = "titleline"></span>
+                            <label class="switch">
+                                <input type="checkbox" id="expand" onChange={openConfig} />
+                                <span class="slider round"></span>
+                            </label>
                              <br />
                              <div id="text" style={{display: "none"}}>
-                                    Set a schedule for when MyActivity is active <br /> <br />
-                                    <b> Active Days </b> <br />
+                                Set a schedule for when MyActivity is active <br /> <br />
+                                <b> Active Days </b> <br />
                                 
                                 <input type="checkbox" id="sunday" checked={Sunday} onClick={handleSunday}/>
                                 &nbsp; Sun &nbsp; &nbsp;
-                                 <input type="checkbox" id="monday" defaultChecked={true} onClick={handleMonday} />
-                                 &nbsp;   Mon &nbsp;&nbsp;
+                                <input type="checkbox" id="monday" defaultChecked={true} onClick={handleMonday} />
+                                &nbsp;   Mon &nbsp;&nbsp;
                                 <input type="checkbox" id="tuesday" defaultChecked={true} onClick={handleTuesday} />
                                 &nbsp;   Tues &nbsp;&nbsp;
                                 <input type="checkbox" id="wednesday" defaultChecked={true} onClick={handleWednesday} />
@@ -104,75 +98,73 @@ function ConfigTile() {
                                 <input type="checkbox" id="saturday" onClick={handleSaturday} />
                                 &nbsp;  Sat &nbsp;&nbsp;
                                 <br /> <br />
+
                                 <b> Active Hours </b> <br />
                                 Start time &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End time <br />
                                 <select name="start time" id="startTime" onChange={() => setStartTime(handleStartTime)}>
-                                    <option value="12:00AM">6:00 am</option>
-                                    <option value="1:00AM">1:00 am</option>
-                                    <option value="2:00AM">2:00 am</option>
-                                    <option value="3:00AM">3:00 am</option>
-                                    <option value="4:00AM">4:00 am</option>
-                                    <option value="5:00AM">5:00 am</option>
-                                    <option value="6:00AM">6:00 am</option>
-                                    <option value="7:00AM">7:00 am</option>
-                                    <option value="8:00AM" selected="selected">8:00 am</option>
-                                    <option value="9:00AM">9:00 am</option>
-                                    <option value="10:00AM">10:00 am</option>
-                                    <option value="11:00AM">11:00 am</option>
-                                    <option value="12:00PM">12:00 am</option>
-                                    <option value="1:00PM">1:00 pm</option>
-                                    <option value="2:00PM">2:00 pm</option>
-                                    <option value="3:00PM">3:00 pm</option>
-                                    <option value="4:00PM">4:00 pm</option>
-                                    <option value="5:00PM">5:00 pm</option>
-                                    <option value="6:00PM">6:00 pm</option>
-                                    <option value="7:00PM">7:00 pm</option>
-                                    <option value="8:00PM">8:00 pm</option>
-                                    <option value="9:00PM">9:00 pm</option>
-                                    <option value="10:00PM">10:00 pm</option>
-                                    <option value="11:00PM">11:00 pm</option>
+                                    <option value="00">12:00 am</option>
+                                    <option value="01">1:00 am</option>
+                                    <option value="02">2:00 am</option>
+                                    <option value="03">3:00 am</option>
+                                    <option value="04">4:00 am</option>
+                                    <option value="05">5:00 am</option>
+                                    <option value="06">6:00 am</option>
+                                    <option value="07">7:00 am</option>
+                                    <option value="08" selected="selected">8:00 am</option>
+                                    <option value="09">9:00 am</option>
+                                    <option value="10">10:00 am</option>
+                                    <option value="11">11:00 am</option>
+                                    <option value="12">12:00 am</option>
+                                    <option value="13">1:00 pm</option>
+                                    <option value="14">2:00 pm</option>
+                                    <option value="15">3:00 pm</option>
+                                    <option value="16">4:00 pm</option>
+                                    <option value="17">5:00 pm</option>
+                                    <option value="18">6:00 pm</option>
+                                    <option value="19">7:00 pm</option>
+                                    <option value="20">8:00 pm</option>
+                                    <option value="21">9:00 pm</option>
+                                    <option value="22">10:00 pm</option>
+                                    <option value="23">11:00 pm</option>
                                 </select>
                                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                 <select name="end time" id="endTime" onChange={() => setEndTime(handleEndTime)}>
-                                    <option value="12:00AM">6:00 am</option>
-                                    <option value="1:00AM">1:00 am</option>
-                                    <option value="2:00AM">2:00 am</option>
-                                    <option value="3:00AM">3:00 am</option>
-                                    <option value="4:00AM">4:00 am</option>
-                                    <option value="5:00AM">5:00 am</option>
-                                    <option value="6:00AM">6:00 am</option>
-                                    <option value="7:00AM">7:00 am</option>
-                                    <option value="8:00AM">8:00 am</option>
-                                    <option value="9:00AM">9:00 am</option>
-                                    <option value="10:00AM">10:00 am</option>
-                                    <option value="11:00AM">11:00 am</option>
-                                    <option value="12:00PM">12:00 am</option>
-                                    <option value="1:00PM">1:00 pm</option>
-                                    <option value="2:00PM">2:00 pm</option>
-                                    <option value="3:00PM">3:00 pm</option>
-                                    <option value="4:00PM">4:00 pm</option>
-                                    <option value="5:00PM" selected="selected">5:00 pm</option>
-                                    <option value="6:00PM">6:00 pm</option>
-                                    <option value="7:00PM">7:00 pm</option>
-                                    <option value="8:00PM">8:00 pm</option>
-                                    <option value="9:00PM">9:00 pm</option>
-                                    <option value="10:00PM">10:00 pm</option>
-                                    <option value="11:00PM">11:00 pm</option>
+                                <option value="00">12:00 am</option>
+                                    <option value="01">1:00 am</option>
+                                    <option value="02">2:00 am</option>
+                                    <option value="03">3:00 am</option>
+                                    <option value="04">4:00 am</option>
+                                    <option value="05">5:00 am</option>
+                                    <option value="06">6:00 am</option>
+                                    <option value="07">7:00 am</option>
+                                    <option value="08" >8:00 am</option>
+                                    <option value="09">9:00 am</option>
+                                    <option value="10">10:00 am</option>
+                                    <option value="11">11:00 am</option>
+                                    <option value="12">12:00 am</option>
+                                    <option value="13">1:00 pm</option>
+                                    <option value="14">2:00 pm</option>
+                                    <option value="15">3:00 pm</option>
+                                    <option value="16">4:00 pm</option>
+                                    <option value="17" selected="selected">5:00 pm</option>
+                                    <option value="18">6:00 pm</option>
+                                    <option value="19">7:00 pm</option>
+                                    <option value="20">8:00 pm</option>
+                                    <option value="21">9:00 pm</option>
+                                    <option value="22">10:00 pm</option>
+                                    <option value="23">11:00 pm</option>
                                 </select>
                                 <br /> <br />
                                 <b> Active Duration </b> <br />
                                 <select name="activity duration" id="activityDuration" onChange={() => setDuration(handleDuration)}>
-                                    <option value="15min" selected="selected">15 min</option>
-                                    <option value="30min">30 min</option>
-                                    <option value="45min">45 min</option>
-                                    <option value="1hr">1 hr</option>
+                                    <option value="15" selected="selected">15 min</option>
+                                    <option value="30">30 min</option>
+                                    <option value="45">45 min</option>
+                                    <option value="59">1 hr</option>
                                 </select>
                                 < br /> < br />
                              </div>
-                             
-                             
                         </Card.Text>
-                        
                     </Form>
                 </Card.Body>
             </Card>
@@ -184,20 +176,20 @@ function ConfigTile() {
 function openConfig() {
   var checkBox = document.getElementById("expand");
   var text = document.getElementById("text");
+  var calendar = document.getElementById("calendar");
 
   if (checkBox.checked == true){
     text.style.display = "block";
+    calendar.style.visibility = "visible";
     const Autobook = true;
     console.log("Autobook is " + Autobook);
     
   } else {
     text.style.display = "none";
+    calendar.style.visibility = "hidden";
     const Autobook = false;
     console.log("Autobook is " + Autobook);
   }
 }
-
-
-
 
 export default ConfigTile;

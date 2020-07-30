@@ -7,17 +7,23 @@ import * as serviceWorker from './serviceWorker';
 import ConfigTile from './ConfigTile';
 import StepsData from './StepsData';
 import StepsGraph from './StepsGraph';
+import logo from './myActivity.png';
 
 ReactDOM.render(
   <React.StrictMode>
     <div>
-    <a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BVTP&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2F&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
-      Login to Fitbit
-    </a>
-  </div>
-    <App />
-    <ConfigTile />
-    <StepsGraph />
+      {/* <h1 style={{color: '#007bff', textAlign: 'center'}}>My Activity</h1> */}
+      <img src={logo} style={{width: '150px', height: '170px', marginLeft: '45%'}} alt="logo" />
+      <br/><br/>
+      <table style={{width:"80%"}}>
+        <tr>
+          <td style={{width:"20%"}}></td>
+          <td><ConfigTile /></td>
+          <td><App /></td>
+        </tr>
+      </table>
+      <br/><br/>
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );
