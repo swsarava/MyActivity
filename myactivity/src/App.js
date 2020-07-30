@@ -260,7 +260,7 @@ function App() {
           {/* <Button id="activity" onClick={getActivityData}>
             Get Activity data
           </Button> */}
-          <br/><br/>
+          {/* <br/><br/> */}
           <Button id="calendar" style={{visibility: "hidden"}} onClick={fetchData}>
               Fetch My Calendar Data and Book Active Slots
           </Button>
