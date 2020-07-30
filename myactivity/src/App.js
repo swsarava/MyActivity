@@ -9,7 +9,7 @@ function App() {
       var url = window.location.href;
       var access_token;
       if (url !== "http://localhost:3000/") {
-        var access_token = url.split("#")[1].split("=")[1].split("&")[0];
+        access_token = url.split("#")[1].split("=")[1].split("&")[0];
         var userId = url.split("#")[1].split("=")[2].split("&")[0]; 
 
         let getActivityDataUrl = 'https://api.fitbit.com/1/user/-/activities/steps/date/2020-07-20/today.json';
@@ -42,23 +42,39 @@ function App() {
 
   let activityStartTime, activityEndTime;
 
+  const formatTime = (time) => {
+    let outTime = time;
+    if(time<=9) {
+      outTime = '0' + (time);
+    }
+    return outTime;
+  }
+
+  const formatTimeOver24 = (time) => {
+    let outTime = time;
+    if(time-24<=9) {
+      outTime = '0' + (time-24);
+    }
+    return outTime;
+  }
+
   const fetchData = async () => {
     try {
       let s = document.getElementById("startTime");
       let startHour = parseInt(s.options[s.selectedIndex].value)+7;  // Convert to UTC time
       let e = document.getElementById("endTime");
       let endHour = parseInt(e.options[e.selectedIndex].value)+7;
-      var startTime, endTime;
+      var startTime, endTime, datePrefix;
 
       if(startHour >= 24 && endHour>= 24) {
-        var startDateFull = new Date();
-        startDateFull.setDate(new Date().getDate() + 1);
+        var dateFull = new Date();
+        dateFull.setDate(new Date().getDate() + 1);
 
-        var datePrefix = endDateFull.toISOString().substring(0, 11);
+        datePrefix = dateFull.toISOString().substring(0, 11);
         startTime = datePrefix + formatTimeOver24(startHour) + ':00:00.0000000';
         endTime = datePrefix + formatTimeOver24(endHour) + ':00:00.0000000';
       } else if(endHour >= 24) {
-        var datePrefix = new Date().toISOString().substring(0, 11);
+        datePrefix = new Date().toISOString().substring(0, 11);
         startTime = datePrefix + formatTime(startHour) + ':00:00.0000000';
 
         var endDateFull = new Date();
@@ -69,7 +85,7 @@ function App() {
         }
         endTime = endDatePrefix + endHour + ':00:00.0000000';
       } else {
-        var datePrefix = new Date().toISOString().substring(0, 11);
+        datePrefix = new Date().toISOString().substring(0, 11);
         startTime = datePrefix + formatTime(startHour) + ':00:00.0000000';
         endTime = datePrefix + formatTime(endHour) + ':00:00.0000000';
       }
