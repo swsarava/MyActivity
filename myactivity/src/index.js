@@ -6,6 +6,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ConfigTile from './ConfigTile';
 import StepsData from './StepsData';
+import StepsGraph from './StepsGraph';
 import logo from './myActivity.png';
 
 ReactDOM.render(
