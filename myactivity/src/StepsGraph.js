@@ -8,17 +8,18 @@ import {
   ArgumentAxis,
   ValueAxis,
 } from '@devexpress/dx-react-chart-material-ui';
+import Async from 'react-async';
 
 import { Animation } from '@devexpress/dx-react-chart';
 
 const datagraph = [
-  { year: '1950', population: 2.525 },
-  { year: '1960', population: 3.018 },
-  { year: '1970', population: 3.682 },
-  { year: '1980', population: 4.440 },
-  { year: '1990', population: 5.310 },
-  { year: '2000', population: 6.127 },
-  { year: '2010', population: 6.930 },
+  { date: '1950', steps: 2.525 },
+  { date: '1960', steps: 3.018 },
+  { date: '1970', steps: 3.682 },
+  { date: '1980', steps: 4.440 },
+  { date: '1990', steps: 5.310 },
+  { date: '2000', steps: 6.127 },
+  { date: '2010', steps: 6.930 },
 ];
 // const chartData = [];
 
@@ -46,17 +47,18 @@ function StepsGraph() {
             };
     
             var response = await fetch(getActivityDataUrl, options);
-    
+
             if(response.status >= 300) {
               throw new Error(response.statusText);
             }
+            
             var data = await response.json();
             var steps = data['activities-steps']
     
             var  dateArray = [];
             var stepsArray = [];
             var chartArray = [];
-            // var chartData = [];
+            var chartData = [];
             steps.forEach(element => {
               console.log(element.dateTime + " : " + element.value);
               dateArray.push(element.dateTime);
@@ -66,28 +68,17 @@ function StepsGraph() {
             });
             setDate(date => dateArray);
             setSteps(steps => stepsArray);
-            setChartData(chartData => chartArray);
+            // setChartData(chartData => chartArray);
             console.log(chartData);
             console.log(datagraph);
+            return chartData;
     
-            var documentLoaded = document.getElementById("button");
-            documentLoaded.innerHTML = "test value"; 
-            // React.state = {data: chartData};
-            {/* <div>
-                <Paper>
-            <Chart data={chartData}>
-              <ArgumentAxis />
-              <ValueAxis max={10} />
-    
-              <BarSeries
-                valueField="steps"
-                argumentField="date"
-              />
-              <Title text="Steps per day" />
-              <Animation />
-            </Chart>
-          </Paper>
-            </div> */}
+           /*  var documentLoaded = document.getElementById("button");
+            var html = "<Paper> <Chart data={datagraph}> <ArgumentAxis /> <ValueAxis max={7} /> <BarSeries valueField='steps'  argumentField='date' /><Title text='Steps per day' /><Animation /></Chart></Paper>";
+            var html1 = "<div><p>hiiii</p></div>"
+            documentLoaded.innerHTML = html; */
+            
+            
            
           }
     
@@ -100,14 +91,48 @@ function StepsGraph() {
      
 
     return (
-        <div id="button">
+        <div>
            <button id="activity" onClick={getActivityData}>
             Get Activity data
         </button>
-        
 
         
-        </div>
+         {/* <div id="button">
+            <Paper>
+            <Chart data={datagraph}>
+              <ArgumentAxis />
+              <ValueAxis max={7} />
+    
+              <BarSeries
+                valueField='steps'
+                argumentField='date'
+              />
+              <Title text='Steps per day' />
+              <Animation />
+            </Chart>
+          </Paper>
+            </div>  */}
+
+{/* <div className="container">
+      <Async promiseFn={getActivityData}>
+        {({ data, err, isLoading }) => {
+          if (isLoading) return "Loading..."
+          if (err) return `Something went wrong: ${err.message}`
+
+          if (data)
+            return (
+              <div>
+                <div>
+                  GOT DATA BACK
+                </div>
+                
+              </div>
+            )
+        }}
+      </Async>
+    </div>  */}
+        
+        </div> 
         
 
     );
