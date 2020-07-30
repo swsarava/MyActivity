@@ -18,15 +18,19 @@ ReactDOM.render(
       <br/><br/>
       <table style={{width:"80%"}}>
         <tr>
-          <td style={{width:"14%"}}></td>
+          <td style={{width:"20%"}}></td>
           <td><ConfigTile /></td>
-          <td style={{width:"3%"}}></td>
-          <td style={{width:"43%"}}><StepsGraph /></td>
-          {/* <td><App /></td> */}
-
+          {/* <td style={{width:"3%"}}></td> */}
+          <td><App /></td>
         </tr>
       </table>
-      <App />
+      <br/><br/>
+      <table style={{width:"80%"}}>
+        <tr>
+          <td style={{width:"13%"}}></td>
+          <td style={{width:"50%"}}><StepsGraph /></td>
+        </tr>
+      </table>
       <br/><br/>
     </div>
   </React.StrictMode>,
