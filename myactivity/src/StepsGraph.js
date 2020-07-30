@@ -13,13 +13,13 @@ import Async from 'react-async';
 import { Animation } from '@devexpress/dx-react-chart';
 
 const datagraph = [
-  { date: '1950', steps: 2.525 },
-  { date: '1960', steps: 3.018 },
-  { date: '1970', steps: 3.682 },
-  { date: '1980', steps: 4.440 },
-  { date: '1990', steps: 5.310 },
-  { date: '2000', steps: 6.127 },
-  { date: '2010', steps: 6.930 },
+  { date: '7/22', steps: 12847 },
+  { date: '7/23', steps: 10023 },
+  { date: '7/24', steps: 8412 },
+  { date: '7/25', steps: 11214 },
+  { date: '7/26', steps: 13324 },
+  { date: '7/27', steps: 6127 },
+  { date: '7/28', steps: 6930 },
 ];
 // const chartData = [];
 
@@ -91,13 +91,13 @@ function StepsGraph() {
      
 
     return (
-        <div>
+       /*  <div>
            <button id="activity" onClick={getActivityData}>
             Get Activity data
-        </button>
+        </button> */
 
         
-         {/* <div id="button">
+          <div id="button">
             <Paper>
             <Chart data={datagraph}>
               <ArgumentAxis />
@@ -111,9 +111,9 @@ function StepsGraph() {
               <Animation />
             </Chart>
           </Paper>
-            </div>  */}
+        </div>  
 
-{/* <div className="container">
+    /* <div className="container">
       <Async promiseFn={getActivityData}>
         {({ data, err, isLoading }) => {
           if (isLoading) return "Loading..."
@@ -130,9 +130,9 @@ function StepsGraph() {
             )
         }}
       </Async>
-    </div>  */}
+    </div>  */
         
-        </div> 
+        // </div> 
         
 
     );
