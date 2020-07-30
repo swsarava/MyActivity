@@ -217,9 +217,9 @@ function App() {
             Login to Fitbit
           </a>
           <br/><br/>
-          <Button id="activity" onClick={getActivityData}>
+          {/* <Button id="activity" onClick={getActivityData}>
             Get Activity data
-          </Button>
+          </Button> */}
           <br/><br/>
           <Button id="calendar" style={{visibility: "hidden"}} onClick={fetchData}>
               Fetch My Calendar Data and Book Active Slots
