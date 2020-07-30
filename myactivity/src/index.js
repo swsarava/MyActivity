@@ -14,14 +14,19 @@ ReactDOM.render(
     <div>
       {/* <h1 style={{color: '#007bff', textAlign: 'center'}}>My Activity</h1> */}
       <img src={logo} style={{width: '150px', height: '170px', marginLeft: '45%'}} alt="logo" />
+
       <br/><br/>
       <table style={{width:"80%"}}>
         <tr>
-          <td style={{width:"20%"}}></td>
+          <td style={{width:"14%"}}></td>
           <td><ConfigTile /></td>
-          <td><App /></td>
+          <td style={{width:"3%"}}></td>
+          <td style={{width:"43%"}}><StepsGraph /></td>
+          {/* <td><App /></td> */}
+
         </tr>
       </table>
+      <App />
       <br/><br/>
     </div>
   </React.StrictMode>,

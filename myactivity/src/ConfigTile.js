@@ -180,13 +180,13 @@ function openConfig() {
 
   if (checkBox.checked == true){
     text.style.display = "block";
-    calendar.style.visibility = "visible";
+    // calendar.style.visibility = "visible";
     const Autobook = true;
     console.log("Autobook is " + Autobook);
     
   } else {
     text.style.display = "none";
-    calendar.style.visibility = "hidden";
+    // calendar.style.visibility = "hidden";
     const Autobook = false;
     console.log("Autobook is " + Autobook);
   }
