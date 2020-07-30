@@ -6,6 +6,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ConfigTile from './ConfigTile';
 import StepsData from './StepsData';
+import StepsGraph from './StepsGraph';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.render(
   </div>
     <App />
     <ConfigTile />
+    <StepsGraph />
   </React.StrictMode>,
   document.getElementById('root')
 );
